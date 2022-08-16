@@ -24,7 +24,6 @@ type Coordinate struct {
 
 func gameMode() {
 	fmt.Println("Starting a new game...")
-	// fmt.Println(empty_board)
 	boardPieces := map[Coordinate]string{
 		Coordinate{0, 1}: "1",
 		Coordinate{0, 5}: "2",
