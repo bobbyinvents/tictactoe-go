@@ -8,10 +8,10 @@ import (
 )
 
 var emptyBoard = []string{
-	"   |   |   ", 
-	"---+---+---", 
-	"   |   |   ", 
-	"---+---+---", 
+	"   |   |   ",
+	"---+---+---",
+	"   |   |   ",
+	"---+---+---",
 	"   |   |   ",
 }
 
@@ -43,7 +43,7 @@ func gameMode() {
 		playerMark := false
 		for !playerMark {
 			playerTurn += 1
-			if (playerTurn + 2) % 2 == 0 {
+			if (playerTurn+2)%2 == 0 {
 				player = 2
 			} else {
 				player = 1
@@ -59,7 +59,7 @@ func gameMode() {
 			input = scanner.Text()
 			fmt.Printf("Player %d entered %q\n", player, input)
 			var mark string
-			if playerTurn % 2 + 1 == 1 {
+			if playerTurn%2+1 == 1 {
 				mark = "O"
 			} else {
 				mark = "X"
@@ -71,7 +71,7 @@ func gameMode() {
 			} else if input == "2" {
 				x, y = 0, 5
 			} else if input == "3" {
-				x, y= 0, 9
+				x, y = 0, 9
 			} else if input == "4" {
 				x, y = 2, 1
 			} else if input == "5" {
@@ -111,7 +111,7 @@ func isMarkedAlready(s string) bool {
 func printBoard(boardPieces map[Coordinate]string) {
 	for row, line := range emptyBoard {
 		var markedLine string = emptyBoard[row]
-		for col:= range line {
+		for col := range line {
 			coord := Coordinate{row, col}
 			if mark, found := boardPieces[coord]; found {
 				markedLine = replaceAtIndex(markedLine, []rune(mark)[0], col)
@@ -142,13 +142,13 @@ func checkWin(boardPieces map[Coordinate]string) bool {
 		// Diagonal
 		{{0, 2, 4}, {1, 5, 9}},
 		{{0, 2, 4}, {9, 5, 1}},
-	} 
+	}
 	for _, v := range winningCombinations {
 		if isThreeInARow(v[0], v[1], boardPieces) {
 			return true
 		}
 	}
-	
+
 	return false
 }
 
@@ -167,14 +167,14 @@ func checkDraw(boardPieces map[Coordinate]string) bool {
 	if boardFilled {
 		return !checkWin(boardPieces)
 	}
-	
+
 	return false
 }
 
-func isThreeInARow(xCoords [3]int, yCoords[3]int, boardPieces map[Coordinate]string) bool {
+func isThreeInARow(xCoords [3]int, yCoords [3]int, boardPieces map[Coordinate]string) bool {
 	if mark1, found := boardPieces[Coordinate{xCoords[0], yCoords[0]}]; found {
-		if mark2, found := boardPieces[Coordinate{xCoords[1],yCoords[1]}]; found {
-			if mark3, found := boardPieces[Coordinate{xCoords[2],yCoords[2]}]; found {
+		if mark2, found := boardPieces[Coordinate{xCoords[1], yCoords[1]}]; found {
+			if mark3, found := boardPieces[Coordinate{xCoords[2], yCoords[2]}]; found {
 				if mark1 == mark2 && mark1 == mark3 {
 					return true
 				}
@@ -185,9 +185,9 @@ func isThreeInARow(xCoords [3]int, yCoords[3]int, boardPieces map[Coordinate]str
 }
 
 func startScreen() {
-	gameTitle := "---------------------\nGame:\tREVERSE TIC-TAC-TOE\n---------------------\n"
+	gameTitle := "---------------------\nGame:\tTIC-TAC-TOE\n---------------------\n"
 	gameInstructions := "Rules:\tTwo players take turns marking the spaces in a three-by-three grid with X or O.\n" +
-		"\tThe first player to get three of their marks in a horizontal, vertical, or diagonal row is the LOSER. The other player is the WINNER.\n---------------------\n"
+		"\tThe first player to get three of their marks in a horizontal, vertical, or diagonal row is the WINNTER.\n---------------------\n"
 	fmt.Println(gameTitle + gameInstructions)
 
 	startScreenPrompt := "Commands:\n\t1: Start a new game.\n\t2: Exit.\n"
