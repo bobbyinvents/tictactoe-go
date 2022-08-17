@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strconv"
 )
 
 var emptyBoard = []string{
@@ -95,7 +96,11 @@ func gameMode() {
 			}
 		}
 	}
-	fmt.Printf("Game Over! Player %d wins!\n", player)
+	if checkWin(boardPieces) {
+		fmt.Printf("Game Over! Player %d wins!\n", player)
+	} else {
+		fmt.Printf("Game Over! Draw game!")
+	}
 	startScreen()
 }
 
@@ -122,7 +127,7 @@ func replaceAtIndex(in string, r rune, i int) string {
 	return string(out)
 }
 
-func checkGameOver(boardPieces map[Coordinate]string) bool {
+func checkWin(boardPieces map[Coordinate]string) bool {
 	winningCombinations := [][][3]int{
 		// Horizontal
 		{{0, 0, 0}, {1, 5, 9}},
@@ -143,6 +148,26 @@ func checkGameOver(boardPieces map[Coordinate]string) bool {
 			return true
 		}
 	}
+	
+	return false
+}
+
+func checkGameOver(boardPieces map[Coordinate]string) bool {
+	return checkWin(boardPieces) || checkDraw(boardPieces)
+}
+
+func checkDraw(boardPieces map[Coordinate]string) bool {
+	var boardFilled bool = true
+	for _, v := range boardPieces {
+		if _, err := strconv.Atoi(v); err == nil {
+			boardFilled = false
+			break
+		}
+	}
+	if boardFilled {
+		return !checkWin(boardPieces)
+	}
+	
 	return false
 }
 
