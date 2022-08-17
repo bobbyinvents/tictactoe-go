@@ -20,7 +20,8 @@ func main() {
 }
 
 type Coordinate struct {
-	x, y interface{}
+	x int
+	y int
 }
 
 func gameMode() {
